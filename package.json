@@ -11,18 +11,21 @@
   },
   "dependencies": {
     "@mediapipe/tasks-vision": "^1.0.1",
+    "@supabase/supabase-js": "2.114.0",
     "react": "latest",
     "react-dom": "latest"
   },
   "devDependencies": {
     "@testing-library/jest-dom": "latest",
     "@testing-library/react": "latest",
+    "@types/node": "26.4.1",
     "@types/react": "latest",
     "@types/react-dom": "latest",
     "@vitejs/plugin-react": "latest",
     "jsdom": "latest",
+    "supabase": "2.116.0",
     "typescript": "latest",
     "vite": "latest",
-    "vitest": "latest"
+    "vitest": "4.1.11"
   }
 }
