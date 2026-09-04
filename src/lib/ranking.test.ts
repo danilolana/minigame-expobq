@@ -13,9 +13,9 @@ describe('ranking client', () => {
 
   it('carrega a lista retornada pela API', async () => {
     const entries = [{ id: '1', playerName: 'Ana', score: 99, createdAt: '2026-09-03T00:00:00Z' }]
-    vi.stubGlobal('fetch', vi.fn().mockResolvedValue(new Response(JSON.stringify({ entries }), { status: 200 })))
-
-    await expect(loadRanking()).resolves.toEqual(entries)
+    const round = { id: 'round-1', number: 1, startedAt: '2026-09-03T00:00:00Z' }
+    vi.stubGlobal('fetch', vi.fn().mockResolvedValue(new Response(JSON.stringify({ round, entries }), { status: 200 })))
+    await expect(loadRanking()).resolves.toEqual({ round, entries })
   })
 
   it('envia somente os dados necessários para salvar', async () => {

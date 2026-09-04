@@ -9,6 +9,9 @@ export type RankingEntry = {
   createdAt: string
 }
 
+export type RankingRound = { id: string; number: number; startedAt: string }
+export type LeaderboardSnapshot = { round: RankingRound; entries: RankingEntry[] }
+
 export type SavedAttempt = {
   entry: RankingEntry
 }
@@ -37,8 +40,7 @@ async function requestJson<T>(input: RequestInfo | URL, init?: RequestInit): Pro
 }
 
 export async function loadRanking(signal?: AbortSignal) {
-  const data = await requestJson<{ entries: RankingEntry[] }>('/api/leaderboard', { signal })
-  return data.entries
+  return requestJson<LeaderboardSnapshot>('/api/leaderboard', { signal })
 }
 
 export async function startRankedRun() {

@@ -31,7 +31,7 @@ button:focus-visible, input:focus-visible { outline: 3px solid var(--sky); outli
   background-size: auto, 44px 44px, 44px 44px, auto;
 }
 
-header {
+.app-header {
   max-width: 1380px;
   margin: auto;
   padding-bottom: 16px;
@@ -41,7 +41,7 @@ header {
   justify-content: space-between;
 }
 
-.brand { display: flex; gap: 12px; align-items: center; }
+.brand { display: flex; gap: 12px; align-items: center; color: inherit; text-decoration: none; }
 .brand-mark {
   display: grid;
   place-items: center;
@@ -76,6 +76,13 @@ header {
   gap: clamp(36px, 5vw, 84px);
   align-items: center;
 }
+.navigation { display: flex; align-items: center; gap: 6px; }
+.navigation a, .navigation button {
+  border: 1px solid transparent; padding: 9px 12px; color: #b6c9d2; background: transparent;
+  cursor: pointer; text-decoration: none; font: 750 11px "Cascadia Mono", Consolas, monospace;
+  letter-spacing: .08em; text-transform: uppercase;
+}
+.navigation a:hover, .navigation a.active, .navigation button:hover { border-color: rgba(108, 199, 255, .34); color: #fff; }
 .info-rail { display: grid; gap: clamp(28px, 5vh, 54px); }
 .eyebrow { margin: 0; color: var(--lime); font-weight: 800; }
 .intro-copy h1 {
@@ -191,6 +198,106 @@ header {
   .leaderboard { align-self: end; }
 }
 
+/* Ranking público — painel de pista pensado para leitura à distância. */
+.ranking-page, .admin-page, .admin-login-page {
+  min-height: 100dvh;
+  background: radial-gradient(circle at 76% 12%, rgba(8, 114, 184, .28), transparent 34%), var(--night);
+}
+.ranking-page { display: grid; grid-template-rows: auto 1fr auto; padding: 22px clamp(20px, 4vw, 70px) 18px; overflow: hidden; }
+.ranking-header { width: 100%; }
+.live-round { display: grid; grid-template-columns: 10px auto; column-gap: 9px; align-items: center; }
+.live-round i, .round-beacon i, .system-ok i { width: 8px; height: 8px; border-radius: 50%; background: var(--lime); box-shadow: 0 0 15px var(--lime); }
+.live-round span { color: #8fa8b5; font: 700 9px "Cascadia Mono", Consolas, monospace; letter-spacing: .12em; text-transform: uppercase; }
+.live-round strong { grid-column: 2; font: 900 22px Bahnschrift, sans-serif; }
+.ranking-stage { width: min(1500px, 100%); margin: auto; padding: 2vh 0; }
+.ranking-title { display: grid; grid-template-columns: 1fr auto; align-items: end; border-bottom: 1px solid rgba(193, 209, 217, .22); padding-bottom: 12px; }
+.ranking-title span, .ranking-footer, .panel-heading span, .admin-summary span, .stats-grid span, .danger-label {
+  color: var(--sky); font: 700 10px "Cascadia Mono", Consolas, monospace; letter-spacing: .12em; text-transform: uppercase;
+}
+.ranking-title h1 { grid-row: 2; margin: 3px 0 0; font: 900 clamp(38px, 5vw, 72px)/.9 Bahnschrift, sans-serif; letter-spacing: -.045em; text-transform: uppercase; }
+.ranking-title p { grid-column: 2; grid-row: 1/3; margin: 0; color: #9eb4bf; font-size: 14px; }
+.ranking-results { margin-top: clamp(20px, 3vh, 36px); }
+.ranking-podium { display: grid; grid-template-columns: 1.08fr .96fr .92fr; gap: clamp(10px, 1.5vw, 24px); list-style: none; margin: 0; padding: 0; }
+.podium-place { position: relative; min-width: 0; min-height: clamp(150px, 21vh, 230px); padding: clamp(18px, 2.2vw, 34px); border: 1px solid rgba(108, 199, 255, .25); overflow: hidden; background: rgba(6, 40, 68, .72); }
+.podium-place::after { content: ""; position: absolute; right: -30px; bottom: -55px; width: 180px; height: 180px; border: 1px solid rgba(108, 199, 255, .15); border-radius: 50%; }
+.podium-place--1 { border-color: rgba(184, 232, 91, .75); background: linear-gradient(135deg, rgba(184,232,91,.14), rgba(6,40,68,.84)); box-shadow: inset 5px 0 var(--lime); }
+.podium-place--2 { box-shadow: inset 5px 0 var(--sky); }
+.podium-place--3 { box-shadow: inset 5px 0 var(--amber); }
+.podium-place > span { color: #75909e; font: 800 clamp(18px, 2vw, 28px) "Cascadia Mono", Consolas, monospace; }
+.podium-place strong { display: block; overflow: hidden; margin-top: clamp(14px, 3vh, 30px); text-overflow: ellipsis; white-space: nowrap; font: 900 clamp(25px, 3.4vw, 52px)/1 Bahnschrift, sans-serif; text-transform: uppercase; }
+.podium-place b { display: inline-block; margin-top: 12px; color: var(--lime); font: 900 clamp(30px, 4vw, 60px)/1 Bahnschrift, sans-serif; }
+.podium-place small { margin-left: 7px; color: #8fa8b5; font: 700 9px "Cascadia Mono", Consolas, monospace; text-transform: uppercase; }
+.ranking-table { list-style: none; margin: 18px 0 0; padding: 0; }
+.ranking-table li { display: grid; grid-template-columns: 62px 1fr auto; align-items: center; min-height: clamp(42px, 5.5vh, 62px); border-bottom: 1px solid rgba(193, 209, 217, .13); }
+.ranking-table li > span { color: #6f8b99; font: 700 13px "Cascadia Mono", Consolas, monospace; }
+.ranking-table li strong { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font: 800 clamp(17px, 2vw, 26px) Bahnschrift, sans-serif; text-transform: uppercase; }
+.ranking-table li b { color: var(--sky); font: 850 clamp(18px, 2vw, 28px) "Cascadia Mono", Consolas, monospace; }
+.ranking-empty { min-height: 52vh; display: grid; place-content: center; justify-items: center; text-align: center; }
+.ranking-empty span { color: var(--lime); font: 750 11px "Cascadia Mono", Consolas, monospace; letter-spacing: .12em; text-transform: uppercase; }
+.ranking-empty h2 { max-width: 760px; margin: 14px 0 0; font: 900 clamp(36px, 6vw, 84px)/.95 Bahnschrift, sans-serif; text-transform: uppercase; }
+.ranking-empty p { color: #99b2bf; }
+.ranking-empty--error span { color: var(--coral); }
+.ranking-footer { display: flex; justify-content: space-between; padding-top: 12px; border-top: 1px solid rgba(193, 209, 217, .16); color: #72909f; }
+.ranking-page.is-updated .ranking-results { animation: ranking-pulse .65s ease; }
+@keyframes ranking-pulse { 50% { filter: brightness(1.25); transform: translateY(-2px); } }
+
+/* Administração — cabine de controle, densa sem perder hierarquia. */
+.admin-page, .admin-login-page { padding: 22px clamp(18px, 4vw, 68px) 50px; }
+.admin-header, .admin-page > section, .admin-page > div, .admin-page > p, .admin-login-page > * { max-width: 1380px; margin-inline: auto; }
+.admin-hero { display: grid; grid-template-columns: 1fr auto auto; gap: 28px; align-items: end; padding: clamp(34px, 6vh, 72px) 0 22px; }
+.admin-hero h1 { margin: 6px 0 0; font: 900 clamp(38px, 5vw, 66px)/.9 Bahnschrift, sans-serif; letter-spacing: -.04em; text-transform: uppercase; }
+.round-beacon { display: grid; grid-template-columns: 10px auto; column-gap: 8px; align-items: center; border-left: 1px solid rgba(193,209,217,.22); padding-left: 28px; }
+.round-beacon span, .round-beacon b { color: #8fa8b5; font: 700 9px "Cascadia Mono", Consolas, monospace; text-transform: uppercase; letter-spacing: .1em; }
+.round-beacon strong { grid-column: 2; font: 900 34px Bahnschrift, sans-serif; }
+.round-beacon b { grid-column: 2; color: var(--lime); }
+.danger-action { min-height: 44px; border: 1px solid rgba(255,113,98,.65); padding: 0 17px; color: #ffd3ce; background: rgba(255,113,98,.09); cursor: pointer; font-weight: 800; text-transform: uppercase; }
+.danger-action:hover { background: rgba(255,113,98,.2); }
+.stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; padding: 1px; background: rgba(193,209,217,.18); }
+.stats-grid article { min-width: 0; padding: 19px; background: #061c30; }
+.stats-grid span, .admin-summary span { display: block; color: #829da9; }
+.stats-grid strong { display: block; margin-top: 10px; font: 900 clamp(25px, 3vw, 40px) Bahnschrift, sans-serif; }
+.admin-summary { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; padding: 18px 0 32px; }
+.admin-summary article { min-width: 0; }
+.admin-summary strong { display: flex; align-items: center; gap: 8px; margin-top: 7px; overflow: hidden; color: #dbe8ec; font-size: 13px; text-overflow: ellipsis; white-space: nowrap; }
+.system-ok { color: var(--lime) !important; }
+.admin-columns { display: grid; grid-template-columns: .9fr 1.1fr; gap: 22px; }
+.admin-panel { border: 1px solid rgba(193,209,217,.18); padding: 22px; background: rgba(4,21,38,.64); }
+.panel-heading { padding-bottom: 14px; border-bottom: 1px solid rgba(193,209,217,.15); }
+.panel-heading h2 { margin: 5px 0 0; font: 850 25px Bahnschrift, sans-serif; text-transform: uppercase; }
+.admin-panel .ranking-table { margin-top: 8px; }
+.admin-panel .ranking-table li { min-height: 43px; grid-template-columns: 42px 1fr auto; }
+.admin-panel .ranking-table li strong { font-size: 15px; }
+.admin-panel .ranking-table li b { font-size: 15px; }
+.runs-list article { padding: 14px 0; border-bottom: 1px solid rgba(193,209,217,.11); }
+.runs-list article > div { display: flex; justify-content: space-between; gap: 12px; }
+.runs-list small { display: block; margin-top: 5px; color: #7893a0; }
+.run-status { color: #a9bec7; font: 700 9px "Cascadia Mono", Consolas, monospace; text-transform: uppercase; }
+.run-status--accepted { color: var(--lime); }.run-status--rejected, .run-status--expired { color: #ff9b91; }
+.round-history { margin-top: 22px; }
+.round-list > article { display: grid; grid-template-columns: 180px 1fr; gap: 25px; padding: 18px 0; border-bottom: 1px solid rgba(193,209,217,.11); }
+.round-list article > div:first-child strong, .round-list article > div:first-child span { display: block; }
+.round-list article > div:first-child span { margin-top: 7px; color: #839da9; font: 700 9px "Cascadia Mono", Consolas, monospace; text-transform: uppercase; }
+.round-list .status-active { color: var(--lime) !important; }
+.round-list dl { display: grid; grid-template-columns: 2fr repeat(5, 1fr); gap: 14px; margin: 0; }
+.round-list dl div { min-width: 0; }.round-list dt { color: #718d9b; font-size: 10px; text-transform: uppercase; }.round-list dd { margin: 5px 0 0; overflow: hidden; font-size: 12px; text-overflow: ellipsis; white-space: nowrap; }
+.panel-empty, .admin-loading-inline { color: #849eaa; }.admin-error, .form-error { color: #ffaaa1; }
+.admin-loading { min-height: 100dvh; display: grid; place-items: center; background: var(--night); color: #94abb6; }
+.admin-login { width: min(440px, 100%); margin-top: 12vh; padding: 32px; border: 1px solid rgba(108,199,255,.25); background: #061c30; box-shadow: 12px 12px 0 rgba(8,114,184,.55); }
+.admin-login h1 { margin: 8px 0 10px; font: 900 42px/.95 Bahnschrift, sans-serif; text-transform: uppercase; }.admin-login > p { color: #93aab5; line-height: 1.5; }
+.admin-login label { display: grid; gap: 7px; margin-top: 18px; color: #9fb4be; font-size: 12px; }
+.admin-login input { height: 46px; border: 1px solid rgba(193,209,217,.3); padding: 0 12px; color: #fff; background: var(--night); }
+.admin-login .primary-action { width: 100%; margin-top: 24px; }
+.modal-backdrop { position: fixed; z-index: 20; inset: 0; display: grid; place-items: center; padding: 18px; background: rgba(1,9,17,.82); backdrop-filter: blur(5px); }
+.confirm-modal { width: min(560px, 100%); border: 1px solid rgba(255,113,98,.5); padding: clamp(24px, 4vw, 40px); background: #071b2d; box-shadow: 14px 14px 0 rgba(255,113,98,.18); }
+.confirm-modal h2 { margin: 9px 0 12px; font: 900 36px Bahnschrift, sans-serif; text-transform: uppercase; }.confirm-modal p { color: #adc0c8; line-height: 1.6; }.confirm-modal > div { display: flex; justify-content: flex-end; gap: 10px; margin-top: 24px; }
+
+@media (max-width: 940px) {
+  .ranking-title p { display: none; }
+  .stats-grid { grid-template-columns: repeat(2, 1fr); }
+  .admin-columns { grid-template-columns: 1fr; }
+  .round-list dl { grid-template-columns: repeat(3, 1fr); }
+}
+
 @media (max-width: 620px) {
   .game-page { padding: 15px 15px 32px; }
   .game-layout { margin-top: 34px; gap: 30px; }
@@ -213,6 +320,24 @@ header {
   .save-panel input, .save-panel button { height: 38px; min-height: 38px; }
   .game-over-actions { margin-top: 8px; }
   .secondary-action, .game-over-actions .primary-action { min-height: 38px; }
+  .app-header { flex-wrap: wrap; gap: 14px; }
+  .game-header .camera-status { display: none; }
+  .navigation { order: 3; width: 100%; }
+  .navigation a, .navigation button { flex: 1; text-align: center; }
+  .ranking-page { overflow: auto; padding: 15px; }
+  .ranking-header .live-round { margin-left: auto; }
+  .ranking-header .navigation { order: initial; width: auto; }
+  .ranking-header .navigation a:first-child { display: block; }
+  .ranking-title { grid-template-columns: 1fr; }.ranking-title h1 { font-size: 40px; }
+  .ranking-podium { grid-template-columns: 1fr; }
+  .podium-place { min-height: 122px; }.podium-place strong { margin-top: 10px; }.podium-place b { font-size: 34px; }
+  .ranking-table li { grid-template-columns: 42px 1fr auto; }
+  .ranking-footer span:last-child { display: none; }
+  .admin-hero { grid-template-columns: 1fr auto; align-items: center; }.admin-hero > div:first-child { grid-column: 1/3; }.admin-hero .danger-action { grid-column: 1/3; }
+  .stats-grid, .admin-summary { grid-template-columns: repeat(2, 1fr); }
+  .round-list > article { grid-template-columns: 1fr; gap: 14px; }.round-list dl { grid-template-columns: repeat(2, 1fr); }
+  .confirm-modal > div { flex-direction: column-reverse; }.confirm-modal button { width: 100%; }
+  .admin-login h1 { font-size: 25px; overflow-wrap: anywhere; }
 }
 
 @media (prefers-reduced-motion: reduce) {

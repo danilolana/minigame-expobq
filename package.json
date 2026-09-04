@@ -13,7 +13,8 @@
     "@mediapipe/tasks-vision": "^1.0.1",
     "@supabase/supabase-js": "2.114.0",
     "react": "latest",
-    "react-dom": "latest"
+    "react-dom": "latest",
+    "react-router-dom": "^7.18.3"
   },
   "devDependencies": {
     "@testing-library/jest-dom": "latest",

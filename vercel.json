@@ -1,0 +1,7 @@
+{
+  "rewrites": [
+    { "source": "/jogo", "destination": "/index.html" },
+    { "source": "/ranking", "destination": "/index.html" },
+    { "source": "/adm", "destination": "/index.html" }
+  ]
+}
