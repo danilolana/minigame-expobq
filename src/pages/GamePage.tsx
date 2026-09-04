@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useReducer, useRef, useState } from 'react'
 import { FaceLandmarker, FilesetResolver } from '@mediapipe/tasks-vision'
 import { Brand } from '../components/Brand'
+import { InstitutionalSignature } from '../components/InstitutionalSignature'
 import { Navigation } from '../components/Navigation'
 import { attemptReducer, initialAttempt } from '../lib/attempt'
 import { normalizePlayerName, saveRankedAttempt, startRankedRun, validatePlayerName } from '../lib/ranking'
@@ -14,9 +15,11 @@ export function GamePage() {
   const videoRef = useRef<HTMLVideoElement>(null)
   const canvasRef = useRef<HTMLCanvasElement>(null)
   const landmarkerRef = useRef<FaceLandmarker | null>(null)
+  const landmarkerPromiseRef = useRef<Promise<FaceLandmarker> | null>(null)
   const streamRef = useRef<MediaStream | null>(null)
   const frameRef = useRef<number | null>(null)
   const lastVideoTimeRef = useRef(-1)
+  const lastDetectionAtRef = useRef(0)
   const targetYRef = useRef(GAME_HEIGHT / 2)
   const runTokenRef = useRef<string | null>(null)
   const [phase, setPhase] = useState<Phase>('ready')
@@ -32,9 +35,23 @@ export function GamePage() {
     frameRef.current = null
     streamRef.current?.getTracks().forEach((track) => track.stop())
     streamRef.current = null
-    landmarkerRef.current?.close()
-    landmarkerRef.current = null
     if (videoRef.current) videoRef.current.srcObject = null
+  }, [])
+
+  const getLandmarker = useCallback(() => {
+    if (!landmarkerPromiseRef.current) {
+      landmarkerPromiseRef.current = (async () => {
+        const vision = await FilesetResolver.forVisionTasks('https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@latest/wasm')
+        return FaceLandmarker.createFromOptions(vision, {
+          baseOptions: { modelAssetPath: 'https://storage.googleapis.com/mediapipe-models/face_landmarker/face_landmarker/float16/latest/face_landmarker.task' },
+          runningMode: 'VIDEO', numFaces: 1,
+        })
+      })().catch((error) => {
+        landmarkerPromiseRef.current = null
+        throw error
+      })
+    }
+    return landmarkerPromiseRef.current
   }, [])
 
   const startGame = useCallback(async () => {
@@ -47,19 +64,19 @@ export function GamePage() {
     try {
       if (!navigator.mediaDevices?.getUserMedia) throw new Error('Este navegador não oferece suporte à câmera.')
       const stream = await navigator.mediaDevices.getUserMedia({
-        video: { facingMode: 'user', width: { ideal: 1280 }, height: { ideal: 720 } }, audio: false,
+        video: { facingMode: 'user', width: { ideal: 640 }, height: { ideal: 480 } }, audio: false,
       })
       streamRef.current = stream
       const video = videoRef.current
       if (!video) throw new Error('Não foi possível iniciar a prévia da câmera.')
       video.srcObject = stream
       await video.play()
-      const vision = await FilesetResolver.forVisionTasks('https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@latest/wasm')
-      landmarkerRef.current = await FaceLandmarker.createFromOptions(vision, {
-        baseOptions: { modelAssetPath: 'https://storage.googleapis.com/mediapipe-models/face_landmarker/face_landmarker/float16/latest/face_landmarker.task' },
-        runningMode: 'VIDEO', numFaces: 1,
-      })
-      try { runTokenRef.current = await startRankedRun() } catch { runTokenRef.current = null }
+      const [landmarker, runToken] = await Promise.all([
+        getLandmarker(),
+        startRankedRun().catch(() => null),
+      ])
+      landmarkerRef.current = landmarker
+      runTokenRef.current = runToken
       targetYRef.current = GAME_HEIGHT / 2
       setScore(0); setSpeed(220); setMessage(''); setPhase('playing')
     } catch (error) {
@@ -67,9 +84,14 @@ export function GamePage() {
       setMessage(error instanceof Error ? error.message : 'Não foi possível usar a câmera.')
       setPhase('error')
     }
-  }, [stopCamera])
+  }, [getLandmarker, stopCamera])
 
-  useEffect(() => stopCamera, [stopCamera])
+  useEffect(() => () => {
+    stopCamera()
+    landmarkerRef.current?.close()
+    landmarkerRef.current = null
+    landmarkerPromiseRef.current = null
+  }, [stopCamera])
   useEffect(() => {
     if (phase !== 'playing' || !canvasRef.current) return
     const canvas = canvasRef.current
@@ -95,18 +117,20 @@ export function GamePage() {
     }
     const drawPortal = (x: number, y: number, width: number, height: number, top: boolean) => {
       const gradient = context.createLinearGradient(x, 0, x + width, 0)
-      gradient.addColorStop(0, '#b9cbd5'); gradient.addColorStop(.5, '#f2f7f8'); gradient.addColorStop(1, '#8aa3b2')
+      gradient.addColorStop(0, '#c4d5e5'); gradient.addColorStop(.5, '#f7fafc'); gradient.addColorStop(1, '#8aa9c1')
       context.shadowColor = 'rgba(42, 165, 255, .42)'; context.shadowBlur = 20; context.fillStyle = gradient
-      context.fillRect(x, y, width, height); context.shadowBlur = 0; context.fillStyle = '#0862a0'; context.fillRect(x + 11, y, 9, height)
+      context.fillRect(x, y, width, height); context.shadowBlur = 0; context.fillStyle = '#0a5fa5'; context.fillRect(x + 11, y, 9, height)
       const capY = top ? y + height - 12 : y
-      context.fillStyle = '#b8e85b'; context.fillRect(x - 7, capY, width + 14, 12)
+      context.fillStyle = '#e6b84a'; context.fillRect(x - 7, capY, width + 14, 12)
       context.fillStyle = 'rgba(255,255,255,.7)'; context.fillRect(x - 7, top ? capY : capY + 10, width + 14, 2)
     }
     const draw = (time: number) => {
       const delta = Math.min((time - lastTime) / 1000, 0.05)
       lastTime = time; elapsed += delta
       const video = videoRef.current; const detector = landmarkerRef.current
-      if (video && detector && video.readyState >= 2 && video.currentTime !== lastVideoTimeRef.current) {
+      if (video && detector && video.readyState >= 2 && time - lastDetectionAtRef.current >= 33
+        && video.currentTime !== lastVideoTimeRef.current) {
+        lastDetectionAtRef.current = time
         lastVideoTimeRef.current = video.currentTime
         const nose = detector.detectForVideo(video, performance.now()).faceLandmarks[0]?.[1]
         if (nose) targetYRef.current = 70 + nose.y * (GAME_HEIGHT - 140)
@@ -129,9 +153,9 @@ export function GamePage() {
       if (roundedSpeed !== lastSpeed) { lastSpeed = roundedSpeed; setSpeed(roundedSpeed) }
 
       const sky = context.createLinearGradient(0, 0, 0, GAME_HEIGHT)
-      sky.addColorStop(0, '#041526'); sky.addColorStop(.55, '#062844'); sky.addColorStop(1, '#07385a')
+      sky.addColorStop(0, '#041a31'); sky.addColorStop(.55, '#082b4a'); sky.addColorStop(1, '#0a436f')
       context.fillStyle = sky; context.fillRect(0, 0, GAME_WIDTH, GAME_HEIGHT)
-      context.strokeStyle = 'rgba(108, 190, 242, .10)'; context.lineWidth = 1
+      context.strokeStyle = 'rgba(88, 174, 232, .11)'; context.lineWidth = 1
       const gridOffset = (elapsed * gameSpeed * .12) % 48
       for (let x = -48 + gridOffset; x < GAME_WIDTH; x += 48) { context.beginPath(); context.moveTo(x, 0); context.lineTo(x, GAME_HEIGHT); context.stroke() }
       for (let y = 36; y < GAME_HEIGHT; y += 54) { context.beginPath(); context.moveTo(0, y); context.lineTo(GAME_WIDTH, y); context.stroke() }
@@ -152,20 +176,20 @@ export function GamePage() {
         const particle = particles[index]
         particle.x += particle.vx * delta; particle.y += particle.vy * delta; particle.life -= delta * 1.6
         if (particle.life <= 0) { particles.splice(index, 1); continue }
-        context.globalAlpha = particle.life; context.fillStyle = index % 2 ? '#b8e85b' : '#6cc7ff'
+        context.globalAlpha = particle.life; context.fillStyle = index % 2 ? '#e6b84a' : '#58aee8'
         context.beginPath(); context.arc(particle.x, particle.y, particle.size * particle.life, 0, Math.PI * 2); context.fill()
       }
       context.globalAlpha = 1
       drawPortal(obstacleX, 0, 72, gapY - gap / 2, true)
       drawPortal(obstacleX, gapY + gap / 2, 72, GAME_HEIGHT, false)
       context.save(); context.translate(135, birdY); context.rotate(Math.max(-.35, Math.min(.35, velocity / 450)))
-      context.shadowColor = 'rgba(184,232,91,.65)'; context.shadowBlur = 22; context.fillStyle = '#f1f6f7'
+      context.shadowColor = 'rgba(230,184,74,.58)'; context.shadowBlur = 22; context.fillStyle = '#f7fafc'
       context.beginPath(); context.ellipse(0, 0, 28, 20, 0, 0, Math.PI * 2); context.fill(); context.shadowBlur = 0
-      context.fillStyle = '#0872b8'; context.beginPath(); context.moveTo(-18, -5); context.lineTo(-45, -19); context.lineTo(-35, 8); context.closePath(); context.fill()
-      context.fillStyle = '#b8e85b'; const flap = Math.sin(elapsed * 18) * 5
+      context.fillStyle = '#0a5fa5'; context.beginPath(); context.moveTo(-18, -5); context.lineTo(-45, -19); context.lineTo(-35, 8); context.closePath(); context.fill()
+      context.fillStyle = '#e6b84a'; const flap = Math.sin(elapsed * 18) * 5
       context.beginPath(); context.moveTo(-4, 5); context.lineTo(-25, 25 + flap); context.lineTo(12, 15); context.closePath(); context.fill()
-      context.fillStyle = '#ffc447'; context.beginPath(); context.moveTo(24, -4); context.lineTo(42, 2); context.lineTo(24, 8); context.closePath(); context.fill()
-      context.fillStyle = '#041526'; context.beginPath(); context.arc(13, -7, 5, 0, Math.PI * 2); context.fill(); context.restore()
+      context.fillStyle = '#f1c75b'; context.beginPath(); context.moveTo(24, -4); context.lineTo(42, 2); context.lineTo(24, 8); context.closePath(); context.fill()
+      context.fillStyle = '#041a31'; context.beginPath(); context.arc(13, -7, 5, 0, Math.PI * 2); context.fill(); context.restore()
       frameRef.current = requestAnimationFrame(draw)
     }
     resetObstacle(); frameRef.current = requestAnimationFrame(draw)
@@ -195,6 +219,7 @@ export function GamePage() {
       <div className={`game-box ${impact ? 'is-impact' : ''}`} id="jogar">
         <canvas ref={canvasRef} width={GAME_WIDTH} height={GAME_HEIGHT} aria-label="Minigame controlado pelo movimento do rosto" />
         <video className={phase === 'playing' ? 'is-visible' : ''} ref={videoRef} autoPlay muted playsInline />
+        {phase === 'playing' && <span className="game-emblem" aria-hidden="true"><img src="/brand/bq-monogram.png" alt="" /></span>}
         {phase === 'playing' && <><div className="score"><span>Pontos</span><strong>{score}</strong></div><div className="telemetry"><span>Velocidade</span><strong>{speed}</strong><i style={{ width: `${Math.min(100, (speed - 220) / 2.8)}%` }} /></div><p className="instruction">Mova o rosto para ajustar a altitude</p></>}
         {phase === 'ready' && <div className="cover"><span>01 — calibrar</span><strong>Ative a câmera para decolar</strong><small>Nenhuma imagem sai deste dispositivo</small></div>}
         {phase === 'loading' && <div className="cover cover--loading"><span>Sincronizando</span><strong>Preparando reconhecimento facial…</strong><i /></div>}
@@ -205,5 +230,6 @@ export function GamePage() {
         </div>}{impact && <div className="impact-flash" aria-hidden="true" />}
       </div>
     </section>
+    <InstitutionalSignature />
   </main>
 }

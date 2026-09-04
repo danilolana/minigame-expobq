@@ -85,3 +85,13 @@ npm run build
 - Após o deploy, valide login, um score real e reset em Preview antes de usar Production.
 - Considere rate limiting para `/api/leaderboard` e `/api/admin/login` no Vercel Firewall.
 - Runs iniciadas há mais de 30 minutos são marcadas como expiradas ao carregar o dashboard.
+
+## Identidade visual e desempenho
+
+- Paleta centralizada em azul-noite, azul BQ, branco e dourado; coral é reservado para falhas e ações destrutivas.
+- Montserrat Variable é empacotada com a aplicação por `@fontsource-variable/montserrat`, limitada ao subconjunto latino e sem requisição ao Google Fonts.
+- Os arquivos oficiais de marca ficam em `public/brand`: brasão no cabeçalho e favicon, logotipo horizontal no selo institucional e monograma dentro do jogo.
+- O canvas continua animando via `requestAnimationFrame`, mas a inferência facial é limitada a aproximadamente 30 FPS.
+- O `FaceLandmarker` é reutilizado entre partidas e fechado apenas ao sair da página, eliminando downloads e inicializações repetidas.
+- A câmera solicita 640×480, resolução suficiente para o ponto facial usado pelo jogo e mais leve que 1280×720.
+- Responsividade e `prefers-reduced-motion` cobrem jogo, ranking, login e dashboard.

@@ -1,21 +1,23 @@
 :root {
-  font-family: "Segoe UI Variable", "Segoe UI", sans-serif;
-  color: #eef6f7;
-  background: #041526;
+  font-family: "Montserrat Variable", Montserrat, Arial, sans-serif;
+  color: #f7fafc;
+  background: #041a31;
   font-synthesis: none;
-  --night: #041526;
-  --navy: #062844;
-  --cobalt: #0872b8;
-  --sky: #6cc7ff;
-  --lime: #b8e85b;
-  --amber: #ffc447;
-  --coral: #ff7162;
-  --mist: #c1d1d9;
+  --night: #041a31;
+  --navy: #082b4a;
+  --cobalt: #0a5fa5;
+  --sky: #58aee8;
+  --gold: #e6b84a;
+  --amber: #f1c75b;
+  --coral: #e86f61;
+  --mist: #cbd8e5;
+  color-scheme: dark;
 }
 
 * { box-sizing: border-box; }
 body { margin: 0; min-width: 320px; background: var(--night); }
 button, input { font: inherit; }
+button { letter-spacing: .025em; }
 button { -webkit-tap-highlight-color: transparent; }
 button:focus-visible, input:focus-visible { outline: 3px solid var(--sky); outline-offset: 3px; }
 
@@ -24,9 +26,9 @@ button:focus-visible, input:focus-visible { outline: 3px solid var(--sky); outli
   padding: 22px clamp(18px, 4vw, 68px) 42px;
   overflow: hidden;
   background:
-    radial-gradient(circle at 82% 18%, rgba(8, 114, 184, .22), transparent 32%),
-    linear-gradient(rgba(108, 199, 255, .035) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(108, 199, 255, .035) 1px, transparent 1px),
+    radial-gradient(circle at 82% 18%, rgba(10, 95, 165, .27), transparent 32%),
+    linear-gradient(rgba(88, 174, 232, .04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(88, 174, 232, .04) 1px, transparent 1px),
     var(--night);
   background-size: auto, 44px 44px, 44px 44px, auto;
 }
@@ -35,7 +37,7 @@ button:focus-visible, input:focus-visible { outline: 3px solid var(--sky); outli
   max-width: 1380px;
   margin: auto;
   padding-bottom: 16px;
-  border-bottom: 1px solid rgba(193, 209, 217, .22);
+  border-bottom: 1px solid rgba(203, 216, 229, .22);
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -45,27 +47,28 @@ button:focus-visible, input:focus-visible { outline: 3px solid var(--sky); outli
 .brand-mark {
   display: grid;
   place-items: center;
-  width: 50px;
-  height: 50px;
+  width: 58px;
+  height: 58px;
+  padding: 2px;
+  overflow: hidden;
   border-radius: 50%;
-  color: var(--night);
-  background: var(--lime);
-  box-shadow: 0 0 0 5px rgba(184, 232, 91, .08);
-  font: 900 17px Bahnschrift, "Arial Narrow", sans-serif;
+  background: #f7fafc;
+  box-shadow: 0 0 0 3px rgba(230, 184, 74, .8), 0 8px 24px rgba(0, 0, 0, .25);
 }
+.brand-mark img { display: block; width: auto; height: 54px; object-fit: contain; }
 .brand strong, .brand small { display: block; }
 .brand strong { text-transform: uppercase; letter-spacing: .08em; }
 .brand small { margin-top: 3px; color: #99b2bf; font-size: 11px; letter-spacing: .08em; }
 
 .camera-status, .eyebrow, .instruction, .leaderboard-heading span, .score span, .telemetry span, .save-panel label {
-  font-family: "Cascadia Mono", Consolas, monospace;
+  font-family: "Montserrat Variable", Montserrat, sans-serif;
   text-transform: uppercase;
   letter-spacing: .12em;
   font-size: 10px;
 }
 .camera-status { display: flex; align-items: center; gap: 8px; color: #99b2bf; }
 .camera-status i { width: 8px; height: 8px; border-radius: 50%; background: #648091; }
-.camera-status--playing i { background: var(--lime); box-shadow: 0 0 14px var(--lime); }
+.camera-status--playing i { background: var(--gold); box-shadow: 0 0 14px rgba(230, 184, 74, .75); }
 .camera-status--loading i { background: var(--amber); box-shadow: 0 0 12px var(--amber); }
 
 .game-layout {
@@ -79,21 +82,22 @@ button:focus-visible, input:focus-visible { outline: 3px solid var(--sky); outli
 .navigation { display: flex; align-items: center; gap: 6px; }
 .navigation a, .navigation button {
   border: 1px solid transparent; padding: 9px 12px; color: #b6c9d2; background: transparent;
-  cursor: pointer; text-decoration: none; font: 750 11px "Cascadia Mono", Consolas, monospace;
+  cursor: pointer; text-decoration: none; font: 750 11px "Montserrat Variable", Montserrat, sans-serif;
   letter-spacing: .08em; text-transform: uppercase;
 }
-.navigation a:hover, .navigation a.active, .navigation button:hover { border-color: rgba(108, 199, 255, .34); color: #fff; }
+.navigation a:hover, .navigation a.active, .navigation button:hover { border-color: rgba(88, 174, 232, .42); color: #fff; }
+.info-rail, .intro-copy { min-width: 0; }
 .info-rail { display: grid; gap: clamp(28px, 5vh, 54px); }
-.eyebrow { margin: 0; color: var(--lime); font-weight: 800; }
+.eyebrow { margin: 0; color: var(--gold); font-weight: 800; }
 .intro-copy h1 {
   margin: 18px 0 24px;
   max-width: 520px;
-  font: 900 clamp(58px, 6.2vw, 96px)/.8 Bahnschrift, "Arial Narrow", sans-serif;
+  font: 850 clamp(54px, 5.8vw, 88px)/.86 "Montserrat Variable", Montserrat, sans-serif;
   letter-spacing: -.075em;
   text-transform: uppercase;
 }
 .intro-copy h1 span { display: block; white-space: nowrap; }
-.intro-copy h1 em { display: block; color: var(--lime); font-style: normal; }
+.intro-copy h1 em { display: block; color: var(--gold); font-style: normal; }
 .intro-copy > p:not(.eyebrow, .error) { max-width: 470px; margin: 0; color: #c1d1d9; font-size: 16px; line-height: 1.65; }
 
 .primary-action, .save-panel button {
@@ -101,7 +105,7 @@ button:focus-visible, input:focus-visible { outline: 3px solid var(--sky); outli
   border: 0;
   padding: 0 22px;
   color: var(--night);
-  background: var(--lime);
+  background: var(--gold);
   cursor: pointer;
   font-weight: 850;
   letter-spacing: .055em;
@@ -114,26 +118,26 @@ button:focus-visible, input:focus-visible { outline: 3px solid var(--sky); outli
 .primary-action:disabled, .save-panel button:disabled { cursor: wait; filter: grayscale(.6); transform: none; }
 .error { max-width: 450px; color: #ffaaa1; font-size: 14px; }
 
-.leaderboard { max-width: 470px; border-top: 1px solid rgba(193, 209, 217, .22); padding-top: 18px; }
+.leaderboard { max-width: 470px; border-top: 1px solid rgba(203, 216, 229, .22); padding-top: 18px; }
 .leaderboard-heading { display: flex; align-items: flex-start; justify-content: space-between; }
 .leaderboard-heading span { color: var(--sky); }
-.leaderboard h2 { margin: 5px 0 0; font: 800 22px Bahnschrift, sans-serif; text-transform: uppercase; letter-spacing: -.02em; }
+.leaderboard h2 { margin: 5px 0 0; font: 800 22px "Montserrat Variable", Montserrat, sans-serif; text-transform: uppercase; letter-spacing: -.02em; }
 .leaderboard-heading button {
   width: 36px;
   height: 36px;
-  border: 1px solid rgba(193, 209, 217, .28);
+  border: 1px solid rgba(203, 216, 229, .28);
   color: var(--mist);
   background: transparent;
   cursor: pointer;
   font-size: 20px;
 }
 .leaderboard ol { list-style: none; margin: 14px 0 0; padding: 0; }
-.leaderboard li { display: grid; grid-template-columns: 38px 1fr auto; align-items: center; min-height: 34px; border-bottom: 1px solid rgba(193, 209, 217, .1); }
-.leaderboard li:first-child { color: var(--lime); }
+.leaderboard li { display: grid; grid-template-columns: 38px 1fr auto; align-items: center; min-height: 34px; border-bottom: 1px solid rgba(203, 216, 229, .1); }
+.leaderboard li:first-child { color: var(--gold); }
 .leaderboard li:nth-child(n + 6) { display: none; }
 .leaderboard li strong { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 13px; }
-.leaderboard li b { font: 800 14px "Cascadia Mono", Consolas, monospace; }
-.rank { color: #6f8b99; font: 11px "Cascadia Mono", Consolas, monospace; }
+.leaderboard li b { font: 800 14px "Montserrat Variable", Montserrat, sans-serif; }
+.rank { color: #7895a8; font: 650 11px "Montserrat Variable", Montserrat, sans-serif; }
 .ranking-note { margin: 14px 0 0; color: #8fa8b5; font-size: 13px; line-height: 1.45; }
 
 .game-box {
@@ -141,7 +145,8 @@ button:focus-visible, input:focus-visible { outline: 3px solid var(--sky); outli
   overflow: hidden;
   min-width: 0;
   background: var(--navy);
-  border: 1px solid rgba(108, 199, 255, .38);
+  border: 1px solid rgba(88, 174, 232, .45);
+  border-top: 3px solid var(--gold);
   box-shadow: 17px 17px 0 var(--cobalt), 17px 17px 48px rgba(0, 0, 0, .35);
   clip-path: polygon(0 0, calc(100% - 28px) 0, 100% 28px, 100% 100%, 28px 100%, 0 calc(100% - 28px));
   isolation: isolate;
@@ -149,43 +154,60 @@ button:focus-visible, input:focus-visible { outline: 3px solid var(--sky); outli
 .game-box canvas { display: block; width: 100%; aspect-ratio: 16/9; height: auto; }
 .game-box video { position: absolute; z-index: 2; right: 14px; bottom: 14px; width: 118px; aspect-ratio: 4/3; object-fit: cover; opacity: 0; transform: scaleX(-1); border: 2px solid rgba(238, 246, 247, .85); background: var(--night); }
 .game-box video.is-visible { opacity: 1; }
+.game-emblem {
+  position: absolute; z-index: 2; top: 14px; left: 50%; display: grid; place-items: center;
+  width: 42px; height: 42px; overflow: hidden; transform: translateX(-50%); border: 2px solid var(--gold);
+  border-radius: 50%; background: rgba(247, 250, 252, .94); box-shadow: 0 5px 20px rgba(0, 0, 0, .3);
+}
+.game-emblem img { width: 180%; height: 180%; object-fit: contain; }
 
 .score, .telemetry { position: absolute; z-index: 2; top: 16px; color: #a8bfca; }
 .score { left: 18px; }
-.score strong { display: block; color: var(--lime); font: 900 38px/.95 Bahnschrift, sans-serif; }
+.score strong { display: block; color: var(--gold); font: 900 38px/.95 "Montserrat Variable", Montserrat, sans-serif; }
 .telemetry { right: 156px; width: 116px; text-align: right; }
-.telemetry strong { display: block; color: #eef6f7; font: 800 20px Bahnschrift, sans-serif; }
-.telemetry i { display: block; height: 3px; margin: 5px 0 0 auto; background: var(--sky); box-shadow: 0 0 10px rgba(108, 199, 255, .7); transition: width .18s linear; }
+.telemetry strong { display: block; color: #f7fafc; font: 800 20px "Montserrat Variable", Montserrat, sans-serif; }
+.telemetry i { display: block; height: 3px; margin: 5px 0 0 auto; background: var(--sky); box-shadow: 0 0 10px rgba(88, 174, 232, .7); transition: width .18s linear; }
 .instruction { position: absolute; z-index: 2; left: 50%; bottom: 15px; transform: translateX(-50%); margin: 0; padding: 9px 13px; white-space: nowrap; color: #c1d1d9; background: rgba(4, 21, 38, .84); }
 
-.cover { position: absolute; z-index: 3; inset: 0; display: grid; place-content: center; justify-items: center; gap: 10px; padding: 28px; text-align: center; background: radial-gradient(circle at center, rgba(8, 114, 184, .22), transparent 50%), rgba(4, 21, 38, .93); }
-.cover::before { content: ""; position: absolute; inset: 11%; border: 1px solid rgba(108, 199, 255, .18); border-radius: 50%; transform: scaleY(.55); }
-.cover span { z-index: 1; color: var(--lime); font: 800 10px "Cascadia Mono", Consolas, monospace; letter-spacing: .14em; text-transform: uppercase; }
-.cover strong { z-index: 1; max-width: 440px; font: 900 clamp(30px, 4vw, 54px)/.92 Bahnschrift, sans-serif; letter-spacing: -.04em; text-transform: uppercase; }
+.cover { position: absolute; z-index: 3; inset: 0; display: grid; place-content: center; justify-items: center; gap: 10px; padding: 28px; text-align: center; background: radial-gradient(circle at center, rgba(10, 95, 165, .27), transparent 50%), rgba(4, 26, 49, .94); }
+.cover::before { content: ""; position: absolute; inset: 11%; border: 1px solid rgba(88, 174, 232, .22); border-radius: 50%; transform: scaleY(.55); }
+.cover span { z-index: 1; color: var(--gold); font: 800 10px "Montserrat Variable", Montserrat, sans-serif; letter-spacing: .14em; text-transform: uppercase; }
+.cover strong { z-index: 1; max-width: 440px; font: 850 clamp(30px, 4vw, 52px)/.96 "Montserrat Variable", Montserrat, sans-serif; letter-spacing: -.035em; text-transform: uppercase; }
 .cover small { z-index: 1; color: #8fa8b5; font-size: 11px; }
-.cover--loading i { z-index: 1; width: 160px; height: 3px; overflow: hidden; background: rgba(108, 199, 255, .15); }
+.cover--loading i { z-index: 1; width: 160px; height: 3px; overflow: hidden; background: rgba(88, 174, 232, .15); }
 .cover--loading i::after { content: ""; display: block; width: 55%; height: 100%; background: var(--sky); animation: scan 1.1s ease-in-out infinite alternate; }
 
-.game-over { position: absolute; z-index: 4; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 24px; text-align: center; background: radial-gradient(circle at 50% 35%, rgba(8, 114, 184, .24), transparent 45%), rgba(4, 16, 29, .94); }
-.game-over > span { color: var(--coral); font: 900 clamp(42px, 7vw, 82px)/.78 Bahnschrift, "Arial Narrow", sans-serif; letter-spacing: -.065em; text-transform: uppercase; }
-.game-over > strong { margin-top: 18px; color: var(--lime); font: 900 clamp(28px, 4vw, 44px) Bahnschrift, sans-serif; }
-.game-over > strong small { color: #9db4c0; font: 700 10px "Cascadia Mono", Consolas, monospace; letter-spacing: .1em; text-transform: uppercase; }
+.game-over { position: absolute; z-index: 4; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 24px; text-align: center; background: radial-gradient(circle at 50% 35%, rgba(10, 95, 165, .28), transparent 45%), rgba(4, 18, 35, .95); }
+.game-over > span { color: #f7fafc; font: 850 clamp(38px, 6vw, 72px)/.86 "Montserrat Variable", Montserrat, sans-serif; letter-spacing: -.05em; text-transform: uppercase; }
+.game-over > strong { margin-top: 18px; color: var(--gold); font: 900 clamp(28px, 4vw, 44px) "Montserrat Variable", Montserrat, sans-serif; }
+.game-over > strong small { color: #a9bdcb; font: 700 10px "Montserrat Variable", Montserrat, sans-serif; letter-spacing: .1em; text-transform: uppercase; }
 .save-panel { width: min(440px, 92%); margin-top: 16px; text-align: left; }
 .save-panel label { color: #9db4c0; }
 .save-panel > div { display: grid; grid-template-columns: 1fr auto; margin-top: 6px; }
-.save-panel input { min-width: 0; height: 46px; border: 1px solid rgba(193, 209, 217, .35); border-right: 0; padding: 0 14px; color: #eef6f7; background: rgba(4, 21, 38, .8); }
+.save-panel input { min-width: 0; height: 46px; border: 1px solid rgba(203, 216, 229, .35); border-right: 0; padding: 0 14px; color: #f7fafc; background: rgba(4, 26, 49, .85); }
 .save-panel input::placeholder { color: #6f8b99; }
 .save-panel button { min-height: 46px; padding-inline: 16px; font-size: 11px; clip-path: none; }
 .attempt-message { max-width: 440px; margin: 10px 0 0; color: #aec1ca; font-size: 12px; }
 .attempt-message--error { color: #ffaaa1; }
-.attempt-message--saved { color: var(--lime); }
+.attempt-message--saved { color: var(--gold); }
 .game-over-actions { display: flex; gap: 10px; margin-top: 12px; }
 .game-over-actions .primary-action { min-height: 44px; }
-.secondary-action { min-height: 42px; border: 1px solid rgba(193, 209, 217, .35); padding: 0 16px; color: #c1d1d9; background: transparent; cursor: pointer; font-size: 12px; font-weight: 750; text-transform: uppercase; }
+.secondary-action { min-height: 42px; border: 1px solid rgba(203, 216, 229, .35); padding: 0 16px; color: #cbd8e5; background: transparent; cursor: pointer; font-size: 12px; font-weight: 750; text-transform: uppercase; }
 .secondary-action:hover { border-color: var(--coral); color: #fff; }
 
 .impact-flash { position: absolute; z-index: 6; inset: 0; pointer-events: none; background: var(--coral); mix-blend-mode: screen; animation: impact .5s ease-out forwards; }
 .is-impact { animation: shake .32s linear; }
+
+.institutional-signature {
+  width: min(1380px, 100%); margin: clamp(30px, 5vh, 58px) auto 0; padding-top: 16px;
+  border-top: 1px solid rgba(203, 216, 229, .16); display: flex; align-items: center; justify-content: flex-end; gap: 14px;
+}
+.institutional-signature > span {
+  display: grid; place-items: center; width: 190px; min-height: 72px; padding: 5px 8px;
+  background: #f7fafc; clip-path: polygon(0 0, calc(100% - 10px) 0, 100% 10px, 100% 100%, 10px 100%, 0 calc(100% - 10px));
+}
+.institutional-signature img { display: block; width: 177px; height: auto; }
+.institutional-signature small { max-width: 120px; color: #91aabd; font-size: 10px; line-height: 1.4; text-transform: uppercase; letter-spacing: .08em; }
 
 @keyframes scan { from { transform: translateX(-85%); } to { transform: translateX(165%); } }
 @keyframes impact { from { opacity: .72; } to { opacity: 0; } }
@@ -201,43 +223,43 @@ button:focus-visible, input:focus-visible { outline: 3px solid var(--sky); outli
 /* Ranking público — painel de pista pensado para leitura à distância. */
 .ranking-page, .admin-page, .admin-login-page {
   min-height: 100dvh;
-  background: radial-gradient(circle at 76% 12%, rgba(8, 114, 184, .28), transparent 34%), var(--night);
+  background: radial-gradient(circle at 76% 12%, rgba(10, 95, 165, .32), transparent 34%), var(--night);
 }
 .ranking-page { display: grid; grid-template-rows: auto 1fr auto; padding: 22px clamp(20px, 4vw, 70px) 18px; overflow: hidden; }
 .ranking-header { width: 100%; }
 .live-round { display: grid; grid-template-columns: 10px auto; column-gap: 9px; align-items: center; }
-.live-round i, .round-beacon i, .system-ok i { width: 8px; height: 8px; border-radius: 50%; background: var(--lime); box-shadow: 0 0 15px var(--lime); }
-.live-round span { color: #8fa8b5; font: 700 9px "Cascadia Mono", Consolas, monospace; letter-spacing: .12em; text-transform: uppercase; }
-.live-round strong { grid-column: 2; font: 900 22px Bahnschrift, sans-serif; }
+.live-round i, .round-beacon i, .system-ok i { width: 8px; height: 8px; border-radius: 50%; background: var(--gold); box-shadow: 0 0 15px rgba(230, 184, 74, .75); }
+.live-round span { color: #91aabd; font: 700 9px "Montserrat Variable", Montserrat, sans-serif; letter-spacing: .12em; text-transform: uppercase; }
+.live-round strong { grid-column: 2; color: var(--gold); font: 900 22px "Montserrat Variable", Montserrat, sans-serif; }
 .ranking-stage { width: min(1500px, 100%); margin: auto; padding: 2vh 0; }
-.ranking-title { display: grid; grid-template-columns: 1fr auto; align-items: end; border-bottom: 1px solid rgba(193, 209, 217, .22); padding-bottom: 12px; }
+.ranking-title { display: grid; grid-template-columns: 1fr auto; align-items: end; border-bottom: 1px solid rgba(203, 216, 229, .22); padding-bottom: 12px; }
 .ranking-title span, .ranking-footer, .panel-heading span, .admin-summary span, .stats-grid span, .danger-label {
-  color: var(--sky); font: 700 10px "Cascadia Mono", Consolas, monospace; letter-spacing: .12em; text-transform: uppercase;
+  color: var(--sky); font: 700 10px "Montserrat Variable", Montserrat, sans-serif; letter-spacing: .12em; text-transform: uppercase;
 }
-.ranking-title h1 { grid-row: 2; margin: 3px 0 0; font: 900 clamp(38px, 5vw, 72px)/.9 Bahnschrift, sans-serif; letter-spacing: -.045em; text-transform: uppercase; }
+.ranking-title h1 { grid-row: 2; margin: 3px 0 0; font: 850 clamp(38px, 5vw, 68px)/.94 "Montserrat Variable", Montserrat, sans-serif; letter-spacing: -.04em; text-transform: uppercase; }
 .ranking-title p { grid-column: 2; grid-row: 1/3; margin: 0; color: #9eb4bf; font-size: 14px; }
 .ranking-results { margin-top: clamp(20px, 3vh, 36px); }
 .ranking-podium { display: grid; grid-template-columns: 1.08fr .96fr .92fr; gap: clamp(10px, 1.5vw, 24px); list-style: none; margin: 0; padding: 0; }
-.podium-place { position: relative; min-width: 0; min-height: clamp(150px, 21vh, 230px); padding: clamp(18px, 2.2vw, 34px); border: 1px solid rgba(108, 199, 255, .25); overflow: hidden; background: rgba(6, 40, 68, .72); }
-.podium-place::after { content: ""; position: absolute; right: -30px; bottom: -55px; width: 180px; height: 180px; border: 1px solid rgba(108, 199, 255, .15); border-radius: 50%; }
-.podium-place--1 { border-color: rgba(184, 232, 91, .75); background: linear-gradient(135deg, rgba(184,232,91,.14), rgba(6,40,68,.84)); box-shadow: inset 5px 0 var(--lime); }
+.podium-place { position: relative; min-width: 0; min-height: clamp(150px, 21vh, 230px); padding: clamp(18px, 2.2vw, 34px); border: 1px solid rgba(88, 174, 232, .3); overflow: hidden; background: rgba(8, 43, 74, .76); }
+.podium-place::after { content: ""; position: absolute; right: -30px; bottom: -55px; width: 180px; height: 180px; border: 1px solid rgba(88, 174, 232, .18); border-radius: 50%; }
+.podium-place--1 { border-color: rgba(230, 184, 74, .82); background: linear-gradient(135deg, rgba(230,184,74,.16), rgba(8,43,74,.88)); box-shadow: inset 5px 0 var(--gold); }
 .podium-place--2 { box-shadow: inset 5px 0 var(--sky); }
 .podium-place--3 { box-shadow: inset 5px 0 var(--amber); }
-.podium-place > span { color: #75909e; font: 800 clamp(18px, 2vw, 28px) "Cascadia Mono", Consolas, monospace; }
-.podium-place strong { display: block; overflow: hidden; margin-top: clamp(14px, 3vh, 30px); text-overflow: ellipsis; white-space: nowrap; font: 900 clamp(25px, 3.4vw, 52px)/1 Bahnschrift, sans-serif; text-transform: uppercase; }
-.podium-place b { display: inline-block; margin-top: 12px; color: var(--lime); font: 900 clamp(30px, 4vw, 60px)/1 Bahnschrift, sans-serif; }
-.podium-place small { margin-left: 7px; color: #8fa8b5; font: 700 9px "Cascadia Mono", Consolas, monospace; text-transform: uppercase; }
+.podium-place > span { color: #7f9caf; font: 800 clamp(18px, 2vw, 28px) "Montserrat Variable", Montserrat, sans-serif; }
+.podium-place strong { display: block; overflow: hidden; margin-top: clamp(14px, 3vh, 30px); text-overflow: ellipsis; white-space: nowrap; font: 850 clamp(25px, 3.4vw, 48px)/1 "Montserrat Variable", Montserrat, sans-serif; text-transform: uppercase; }
+.podium-place b { display: inline-block; margin-top: 12px; color: var(--gold); font: 900 clamp(30px, 4vw, 56px)/1 "Montserrat Variable", Montserrat, sans-serif; }
+.podium-place small { margin-left: 7px; color: #91aabd; font: 700 9px "Montserrat Variable", Montserrat, sans-serif; text-transform: uppercase; }
 .ranking-table { list-style: none; margin: 18px 0 0; padding: 0; }
-.ranking-table li { display: grid; grid-template-columns: 62px 1fr auto; align-items: center; min-height: clamp(42px, 5.5vh, 62px); border-bottom: 1px solid rgba(193, 209, 217, .13); }
-.ranking-table li > span { color: #6f8b99; font: 700 13px "Cascadia Mono", Consolas, monospace; }
-.ranking-table li strong { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font: 800 clamp(17px, 2vw, 26px) Bahnschrift, sans-serif; text-transform: uppercase; }
-.ranking-table li b { color: var(--sky); font: 850 clamp(18px, 2vw, 28px) "Cascadia Mono", Consolas, monospace; }
+.ranking-table li { display: grid; grid-template-columns: 62px 1fr auto; align-items: center; min-height: clamp(42px, 5.5vh, 62px); border-bottom: 1px solid rgba(203, 216, 229, .13); }
+.ranking-table li > span { color: #7895a8; font: 700 13px "Montserrat Variable", Montserrat, sans-serif; }
+.ranking-table li strong { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font: 750 clamp(17px, 2vw, 24px) "Montserrat Variable", Montserrat, sans-serif; text-transform: uppercase; }
+.ranking-table li b { color: var(--sky); font: 850 clamp(18px, 2vw, 27px) "Montserrat Variable", Montserrat, sans-serif; }
 .ranking-empty { min-height: 52vh; display: grid; place-content: center; justify-items: center; text-align: center; }
-.ranking-empty span { color: var(--lime); font: 750 11px "Cascadia Mono", Consolas, monospace; letter-spacing: .12em; text-transform: uppercase; }
-.ranking-empty h2 { max-width: 760px; margin: 14px 0 0; font: 900 clamp(36px, 6vw, 84px)/.95 Bahnschrift, sans-serif; text-transform: uppercase; }
+.ranking-empty span { color: var(--gold); font: 750 11px "Montserrat Variable", Montserrat, sans-serif; letter-spacing: .12em; text-transform: uppercase; }
+.ranking-empty h2 { max-width: 760px; margin: 14px 0 0; font: 850 clamp(34px, 5.5vw, 74px)/1 "Montserrat Variable", Montserrat, sans-serif; text-transform: uppercase; }
 .ranking-empty p { color: #99b2bf; }
 .ranking-empty--error span { color: var(--coral); }
-.ranking-footer { display: flex; justify-content: space-between; padding-top: 12px; border-top: 1px solid rgba(193, 209, 217, .16); color: #72909f; }
+.ranking-footer { display: flex; justify-content: space-between; padding-top: 12px; border-top: 1px solid rgba(203, 216, 229, .16); color: #7895a8; }
 .ranking-page.is-updated .ranking-results { animation: ranking-pulse .65s ease; }
 @keyframes ranking-pulse { 50% { filter: brightness(1.25); transform: translateY(-2px); } }
 
@@ -245,51 +267,51 @@ button:focus-visible, input:focus-visible { outline: 3px solid var(--sky); outli
 .admin-page, .admin-login-page { padding: 22px clamp(18px, 4vw, 68px) 50px; }
 .admin-header, .admin-page > section, .admin-page > div, .admin-page > p, .admin-login-page > * { max-width: 1380px; margin-inline: auto; }
 .admin-hero { display: grid; grid-template-columns: 1fr auto auto; gap: 28px; align-items: end; padding: clamp(34px, 6vh, 72px) 0 22px; }
-.admin-hero h1 { margin: 6px 0 0; font: 900 clamp(38px, 5vw, 66px)/.9 Bahnschrift, sans-serif; letter-spacing: -.04em; text-transform: uppercase; }
-.round-beacon { display: grid; grid-template-columns: 10px auto; column-gap: 8px; align-items: center; border-left: 1px solid rgba(193,209,217,.22); padding-left: 28px; }
-.round-beacon span, .round-beacon b { color: #8fa8b5; font: 700 9px "Cascadia Mono", Consolas, monospace; text-transform: uppercase; letter-spacing: .1em; }
-.round-beacon strong { grid-column: 2; font: 900 34px Bahnschrift, sans-serif; }
-.round-beacon b { grid-column: 2; color: var(--lime); }
+.admin-hero h1 { margin: 6px 0 0; font: 850 clamp(36px, 4.7vw, 60px)/.94 "Montserrat Variable", Montserrat, sans-serif; letter-spacing: -.04em; text-transform: uppercase; }
+.round-beacon { display: grid; grid-template-columns: 10px auto; column-gap: 8px; align-items: center; border-left: 1px solid rgba(203,216,229,.22); padding-left: 28px; }
+.round-beacon span, .round-beacon b { color: #91aabd; font: 700 9px "Montserrat Variable", Montserrat, sans-serif; text-transform: uppercase; letter-spacing: .1em; }
+.round-beacon strong { grid-column: 2; color: var(--gold); font: 900 34px "Montserrat Variable", Montserrat, sans-serif; }
+.round-beacon b { grid-column: 2; color: var(--gold); }
 .danger-action { min-height: 44px; border: 1px solid rgba(255,113,98,.65); padding: 0 17px; color: #ffd3ce; background: rgba(255,113,98,.09); cursor: pointer; font-weight: 800; text-transform: uppercase; }
 .danger-action:hover { background: rgba(255,113,98,.2); }
-.stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; padding: 1px; background: rgba(193,209,217,.18); }
+.stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; padding: 1px; background: rgba(203,216,229,.18); }
 .stats-grid article { min-width: 0; padding: 19px; background: #061c30; }
 .stats-grid span, .admin-summary span { display: block; color: #829da9; }
-.stats-grid strong { display: block; margin-top: 10px; font: 900 clamp(25px, 3vw, 40px) Bahnschrift, sans-serif; }
+.stats-grid strong { display: block; margin-top: 10px; font: 850 clamp(25px, 3vw, 38px) "Montserrat Variable", Montserrat, sans-serif; }
 .admin-summary { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; padding: 18px 0 32px; }
 .admin-summary article { min-width: 0; }
 .admin-summary strong { display: flex; align-items: center; gap: 8px; margin-top: 7px; overflow: hidden; color: #dbe8ec; font-size: 13px; text-overflow: ellipsis; white-space: nowrap; }
-.system-ok { color: var(--lime) !important; }
+.system-ok { color: var(--gold) !important; }
 .admin-columns { display: grid; grid-template-columns: .9fr 1.1fr; gap: 22px; }
-.admin-panel { border: 1px solid rgba(193,209,217,.18); padding: 22px; background: rgba(4,21,38,.64); }
-.panel-heading { padding-bottom: 14px; border-bottom: 1px solid rgba(193,209,217,.15); }
-.panel-heading h2 { margin: 5px 0 0; font: 850 25px Bahnschrift, sans-serif; text-transform: uppercase; }
+.admin-panel { border: 1px solid rgba(203,216,229,.18); padding: 22px; background: rgba(4,26,49,.7); }
+.panel-heading { padding-bottom: 14px; border-bottom: 1px solid rgba(203,216,229,.15); }
+.panel-heading h2 { margin: 5px 0 0; font: 800 25px "Montserrat Variable", Montserrat, sans-serif; text-transform: uppercase; }
 .admin-panel .ranking-table { margin-top: 8px; }
 .admin-panel .ranking-table li { min-height: 43px; grid-template-columns: 42px 1fr auto; }
 .admin-panel .ranking-table li strong { font-size: 15px; }
 .admin-panel .ranking-table li b { font-size: 15px; }
-.runs-list article { padding: 14px 0; border-bottom: 1px solid rgba(193,209,217,.11); }
+.runs-list article { padding: 14px 0; border-bottom: 1px solid rgba(203,216,229,.11); }
 .runs-list article > div { display: flex; justify-content: space-between; gap: 12px; }
 .runs-list small { display: block; margin-top: 5px; color: #7893a0; }
-.run-status { color: #a9bec7; font: 700 9px "Cascadia Mono", Consolas, monospace; text-transform: uppercase; }
-.run-status--accepted { color: var(--lime); }.run-status--rejected, .run-status--expired { color: #ff9b91; }
+.run-status { color: #a9bec7; font: 700 9px "Montserrat Variable", Montserrat, sans-serif; text-transform: uppercase; }
+.run-status--accepted { color: var(--gold); }.run-status--rejected, .run-status--expired { color: #f2998f; }
 .round-history { margin-top: 22px; }
-.round-list > article { display: grid; grid-template-columns: 180px 1fr; gap: 25px; padding: 18px 0; border-bottom: 1px solid rgba(193,209,217,.11); }
+.round-list > article { display: grid; grid-template-columns: 180px 1fr; gap: 25px; padding: 18px 0; border-bottom: 1px solid rgba(203,216,229,.11); }
 .round-list article > div:first-child strong, .round-list article > div:first-child span { display: block; }
-.round-list article > div:first-child span { margin-top: 7px; color: #839da9; font: 700 9px "Cascadia Mono", Consolas, monospace; text-transform: uppercase; }
-.round-list .status-active { color: var(--lime) !important; }
+.round-list article > div:first-child span { margin-top: 7px; color: #839da9; font: 700 9px "Montserrat Variable", Montserrat, sans-serif; text-transform: uppercase; }
+.round-list .status-active { color: var(--gold) !important; }
 .round-list dl { display: grid; grid-template-columns: 2fr repeat(5, 1fr); gap: 14px; margin: 0; }
 .round-list dl div { min-width: 0; }.round-list dt { color: #718d9b; font-size: 10px; text-transform: uppercase; }.round-list dd { margin: 5px 0 0; overflow: hidden; font-size: 12px; text-overflow: ellipsis; white-space: nowrap; }
 .panel-empty, .admin-loading-inline { color: #849eaa; }.admin-error, .form-error { color: #ffaaa1; }
 .admin-loading { min-height: 100dvh; display: grid; place-items: center; background: var(--night); color: #94abb6; }
-.admin-login { width: min(440px, 100%); margin-top: 12vh; padding: 32px; border: 1px solid rgba(108,199,255,.25); background: #061c30; box-shadow: 12px 12px 0 rgba(8,114,184,.55); }
-.admin-login h1 { margin: 8px 0 10px; font: 900 42px/.95 Bahnschrift, sans-serif; text-transform: uppercase; }.admin-login > p { color: #93aab5; line-height: 1.5; }
+.admin-login { width: min(440px, 100%); margin-top: 12vh; padding: 32px; border: 1px solid rgba(88,174,232,.3); border-top: 3px solid var(--gold); background: #071f38; box-shadow: 12px 12px 0 rgba(10,95,165,.6); }
+.admin-login h1 { margin: 8px 0 10px; font: 850 40px/.98 "Montserrat Variable", Montserrat, sans-serif; text-transform: uppercase; }.admin-login > p { color: #9eb2c1; line-height: 1.5; }
 .admin-login label { display: grid; gap: 7px; margin-top: 18px; color: #9fb4be; font-size: 12px; }
-.admin-login input { height: 46px; border: 1px solid rgba(193,209,217,.3); padding: 0 12px; color: #fff; background: var(--night); }
+.admin-login input { height: 46px; border: 1px solid rgba(203,216,229,.3); padding: 0 12px; color: #fff; background: var(--night); }
 .admin-login .primary-action { width: 100%; margin-top: 24px; }
 .modal-backdrop { position: fixed; z-index: 20; inset: 0; display: grid; place-items: center; padding: 18px; background: rgba(1,9,17,.82); backdrop-filter: blur(5px); }
 .confirm-modal { width: min(560px, 100%); border: 1px solid rgba(255,113,98,.5); padding: clamp(24px, 4vw, 40px); background: #071b2d; box-shadow: 14px 14px 0 rgba(255,113,98,.18); }
-.confirm-modal h2 { margin: 9px 0 12px; font: 900 36px Bahnschrift, sans-serif; text-transform: uppercase; }.confirm-modal p { color: #adc0c8; line-height: 1.6; }.confirm-modal > div { display: flex; justify-content: flex-end; gap: 10px; margin-top: 24px; }
+.confirm-modal h2 { margin: 9px 0 12px; font: 850 36px "Montserrat Variable", Montserrat, sans-serif; text-transform: uppercase; }.confirm-modal p { color: #adc0c8; line-height: 1.6; }.confirm-modal > div { display: flex; justify-content: flex-end; gap: 10px; margin-top: 24px; }
 
 @media (max-width: 940px) {
   .ranking-title p { display: none; }
@@ -302,11 +324,12 @@ button:focus-visible, input:focus-visible { outline: 3px solid var(--sky); outli
   .game-page { padding: 15px 15px 32px; }
   .game-layout { margin-top: 34px; gap: 30px; }
   .info-rail { grid-template-columns: 1fr; gap: 28px; }
-  .intro-copy h1 { font-size: clamp(58px, 20vw, 88px); }
+  .intro-copy h1 { font-size: clamp(50px, 16vw, 64px); }
   .intro-copy > p:not(.eyebrow, .error) { font-size: 15px; }
   .leaderboard li:nth-child(n + 4) { display: none; }
   .game-box { box-shadow: 8px 8px 0 var(--cobalt); }
   .game-box video { width: 70px; right: 8px; bottom: 8px; }
+  .game-emblem { top: 8px; width: 34px; height: 34px; }
   .score { top: 9px; left: 11px; }
   .score strong { font-size: 27px; }
   .telemetry { top: 9px; right: 88px; width: 78px; }
@@ -338,6 +361,9 @@ button:focus-visible, input:focus-visible { outline: 3px solid var(--sky); outli
   .round-list > article { grid-template-columns: 1fr; gap: 14px; }.round-list dl { grid-template-columns: repeat(2, 1fr); }
   .confirm-modal > div { flex-direction: column-reverse; }.confirm-modal button { width: 100%; }
   .admin-login h1 { font-size: 25px; overflow-wrap: anywhere; }
+  .institutional-signature { justify-content: flex-start; margin-top: 34px; }
+  .institutional-signature > span { width: 168px; min-height: 64px; }
+  .institutional-signature img { width: 154px; }
 }
 
 @media (prefers-reduced-motion: reduce) {
